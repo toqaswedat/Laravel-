@@ -37,5 +37,12 @@ Route::post('/products', [ProductController::class,'store'])->name('products.sto
 
 
 
-Route::get('/Categorios', [CategoryController::class, 'index']);
+Route::get('/Categorios', [CategoryController::class, 'index'])->name('Category.index');
+Route::get('/Categorios/{id}/edit', [CategoryController::class, 'edit']);
+Route::put('Categorios/{product}', [CategoryController::class, 'update'])->name('Category.update');
+Route::delete('Categorios/{id}',  [CategoryController::class, 'destroy'])->name('Category.destroy');
+Route::get('/Categorios/create', [CategoryController::class,'create'])->name('Category.create');
+Route::post('/Categorios', [CategoryController::class,'store'])->name('Category.store');
+
+
 Route::get('/Users', [UserController::class, 'index']);
