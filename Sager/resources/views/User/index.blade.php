@@ -9,12 +9,13 @@
 </head>
 <body>
 <div class="container">
+<a href="{{ route('User.create') }}">Create a new User</a>
+
 <table >
     <thead>
         <tr>
             <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
+            <th>email</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -23,10 +24,14 @@
         @foreach($Users as $product)
         <tr>
             <td>{{ $product->name }}</td>
-            <td>{{ $product->description }}</td>
-            <td>{{ $product->price }}</td>
-            <td>Edit</td>
-            <td>Delete</td>
+            <td>{{ $product->email }}</td>
+            <td><a href="/Users/{{$product->id}}/edit">Edit</a></td>
+            <td><a href="#" class="btn btn-danger btn-sm delete" data-id="{{ $product->id }}">       
+                <form action="{{ route('User.destroy', $product->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Delete</button>
+        </form></a></td>
         </tr>
         @endforeach
     </tbody>

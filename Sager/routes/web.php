@@ -45,4 +45,9 @@ Route::get('/Categorios/create', [CategoryController::class,'create'])->name('Ca
 Route::post('/Categorios', [CategoryController::class,'store'])->name('Category.store');
 
 
-Route::get('/Users', [UserController::class, 'index']);
+Route::get('/Users', [UserController::class, 'index'])->name('User.index');
+Route::get('/Users/{id}/edit', [UserController::class, 'edit']);
+Route::put('Users/{product}', [UserController::class, 'update'])->name('User.update');
+Route::delete('Users/{id}',  [UserController::class, 'destroy'])->name('User.destroy');
+Route::get('/Users/create', [UserController::class,'create'])->name('User.create');
+Route::post('/Users', [UserController::class,'store'])->name('User.store');

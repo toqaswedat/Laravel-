@@ -20,42 +20,41 @@ class CategoryController extends Controller
         return view('Category.edit', ['Category' => $Category]);
     }
     public function update(Request $request, $id)
-{
-    $Category = Category::find($id);
-    $Category->name = $request->name;
-    $Category->save();
-    return redirect('/Categorios');
-}
+    {
+        $Category = Category::find($id);
+        $Category->name = $request->name;
+        $Category->save();
+        return redirect('/Categorios');
+    }
 
-public function destroy($id)
-{
-    $Category = Category::findOrFail($id);
-    $Category->delete();
-    return redirect()->route('Category.index')->with('success', 'Category deleted successfully');
-}
+    public function destroy($id)
+    {
+        $Category = Category::findOrFail($id);
+        $Category->delete();
+        return redirect()->route('Category.index')->with('success', 'Category deleted successfully');
+    }
 
+    public function create()
+    {
+        $userId = Auth::id();
+        return view('Category.create', compact('userId'));
+    }
 
-public function create()
-{
-    $userId = Auth::id();
-    return view('Category.create', compact('userId'));
-}
+    public function store(Request $request)
+    {
+        // Validate the input
+        $request->validate([
+            // Add your validation rules here
+        ]);
 
-public function store(Request $request)
-{
-    // Validate the input
-    $request->validate([
-        // Add your validation rules here
-    ]);
+        // Create a new Category
+        $Category = new Category;
+        $Category->fill($request->all());
+        $Category->save();
 
-    // Create a new Category
-    $Category = new Category;
-    $Category->fill($request->all());
-    $Category->save();
-
-    // Redirect to the Category list
-    return redirect()->route('Category.index');
-}
+        // Redirect to the Category list
+        return redirect()->route('Category.index');
+    }
 
 
 
