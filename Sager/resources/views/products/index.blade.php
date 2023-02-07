@@ -4,15 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" type="text/css" href="app.css" /> -->
+    <link rel="stylesheet" type="text/css" href="app.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>products</title>
 </head>
 <body>
-<div class="container">
-    <!-- resources/views/products/index.blade.php -->
-<a href="{{ route('products.create') }}">Create a new product</a>
+<h1 class="text-center ">Products</h1>
+<a href="{{ route('products.create') }}" class="btn btn-outline-success m-3">Create a new product</a>
 
-<table >
+<div class="d-flex flex-wrap justify-content-center">
+@foreach($products as $product)
+<div class="productcard w-25 gap-3 d-flex flex-column justify-content-center m-4  align-items-center">
+<img src="{{ asset($product->image) }}" alt="Product Image" class="w-75 p-2">
+  <h3 class="p-2">{{ $product->name }}</h3>
+  <p class="text-center m-4 ">
+  {{ $product->description }}
+</p>
+  <h3 class="price">${{ $product->price }}</h3>
+  <div class="buttons">
+    <a class="btn btn-outline-success" href="/products/{{$product->id}}/edit">
+        Edit
+    </a>
+
+    <a href="#" class="btn btn-danger" data-id="{{ $product->id }}">       
+        <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btn-sm ">Delete</button>
+        </form>
+    </a>
+
+  </div>
+</div>
+@endforeach
+
+<!-- <table >
     <thead>
         <tr>
             <th>Name</th>
@@ -40,8 +66,8 @@
 
         @endforeach
     </tbody>
-</table>
-</div>
+</table> -->
+<!-- </div> -->
 
 
 
